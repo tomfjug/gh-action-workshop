@@ -1,0 +1,42 @@
+# Workflow names are optional, but should be provided.
+# They are displayed on GitHub when the action is run.
+name: Task3
+
+# The `on` property configures the events that will trigger the workflow.
+# In our case we want it to run when the `pull_request` event is triggered.
+# In short, that means that the workflow will run when a pull request is
+# either opened or updated (but not renamed or labeled – code needs to
+# be changed).
+#
+on:
+  - pull_request
+
+# Jobs are what actually do the work. We can add as many jobs as we want.
+# These will be run in parallel.
+jobs:
+    build_job:
+        name: build
+
+        runs-on: ubuntu-latest
+
+        steps:
+         - name: Checkout repository
+            # To reference external workflows, we use the `uses` keyword.
+            # The thing after the `@` is the version of the workflow, and
+            # references a Git tag.
+           uses: actions/checkout@v4
+         - name: Install dependencies
+           run: npm ci
+         - name: Build
+           run: npm run build
+    test_job:
+        runs-on: ubuntu-latest
+        steps:
+          - name: Test
+            run: npm run test
+    LintCheck_job:
+        runs-on: ubuntu-latest
+        steps:
+          - name: LintCheck
+            run: npm run lint:check
+    

@@ -1,4 +1,4 @@
-﻿# Workflow names are optional, but should be provided.
+﻿﻿# Workflow names are optional, but should be provided.
 # They are displayed on GitHub when the action is run.
 name: Hello world ✨
 
